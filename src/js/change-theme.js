@@ -1,39 +1,42 @@
 const refs = {
-    body: document.querySelector('body'),
-    switch: document.querySelector('.theme-switch__toggle'),
-  };
-  
-  const Theme = {
-    LIGHT: 'light-theme',
-    DARK: 'dark-theme',
-  };
-  
-//   console.log(localStorage);
- 
-console.log(localStorage);
-console.dir(refs.switch);
-refs.switch.addEventListener('change', changeColorTheme);
-// console.dir(refs.switch);
+  body: document.querySelector('body'),
+  switch: document.querySelector('.js-switch-input'),
+};
 
-function changeColorTheme() {
-    const checked = refs.switch.checked;
-    if (checked) {
-      replaceTheme(Theme.DARK, Theme.LIGHT); // вызов функции изменяющей тему
-  
-      localStorage.setItem('theme', Theme.DARK);
-    } else {
-      replaceTheme(Theme.LIGHT, Theme.DARK);
-  
-      localStorage.setItem('theme', Theme.LIGHT);
-    }
-  }
-// Добавляем класс на боди и перемещаем переключатель, если в localStorage была темная тема
-const localTheme = localStorage.getItem('theme'); //Чтение данных из локального хранилища 
-addClassForLocalTheme(); 
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
 
-function addClassForLocalTheme() {
-    if (localTheme === Theme.DARK) {
-      refs.body.classList.add(Theme.DARK);
-      refs.switch.checked = true;
-    }
+refs.switch.addEventListener('change', setClassList);
+refs.switch.addEventListener('change', setLocalStorage);
+
+function setClassList(e) {
+  const check = refs.switch.checked;
+
+  if (check) {
+    refs.body.classList.add(Theme.DARK);
+    refs.body.classList.remove(Theme.LIGHT);
+  } else {
+    refs.body.classList.add(Theme.LIGHT);
+    refs.body.classList.remove(Theme.DARK);
   }
+}
+
+function setLocalStorage(e) {
+  const check = refs.switch.checked;
+
+  if (check) {
+    localStorage.setItem('theme', Theme.DARK);
+  } else {
+    localStorage.removeItem('theme');
+    localStorage.setItem('theme', Theme.LIGHT);
+  }
+}
+
+const themeInLocal = localStorage.getItem('theme');
+
+if (themeInLocal === Theme.DARK) {
+  refs.body.classList.add(Theme.DARK);
+  refs.switch.checked = true;
+}
