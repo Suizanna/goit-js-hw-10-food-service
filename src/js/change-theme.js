@@ -9,7 +9,7 @@ const Theme = {
 };
 
 refs.switch.addEventListener('change', setClassList);
-refs.switch.addEventListener('change', setLocalStorage);
+
 
 function setClassList(e) {
   const check = refs.switch.checked;
