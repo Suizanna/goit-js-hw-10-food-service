@@ -8,7 +8,7 @@ const refs = {
     DARK: 'dark-theme',
   };
   
-  console.log(localStorage);
+//   console.log(localStorage);
  
 
   refs.switch.addEventListener('change', changeColorTheme);
@@ -19,21 +19,42 @@ const refs = {
         refs.body.classList.add(Theme.DARK);
         refs.bode.classList.remove(Theme.LIGHT);
 
-        localStorage.setItem('theme', Theme.DARK); // записать пару ключ:значение. localStorage хранит только строки
+        // localStorage.setItem('theme', Theme.DARK); 
     } else {
         refs.body.classList.add(Theme.LIGHT);
         refs.bode.classList.remove(Theme.DARK);
 
-        localStorage.setItem('theme', Theme.LIGHT);
+        // localStorage.setItem('theme', Theme.LIGHT);
     
     }
   }
 
-// Добавляем класс на боди и перемещаем переключатель, если в localStorage была темная тема
+  
+function setLocalStorage(e) {
+    const check = refs.switch.checked;
+  
+    if (check) {
+      localStorage.setItem('theme', Theme.DARK); 
+    } else {
+      localStorage.removeItem('theme', Theme.DARK);
+      localStorage.setItem('theme', Theme.LIGHT);
+    }
+  }
 
-const localTheme = localStorage.removeItem('theme'); //Чтение данных из локального хранилища 
+
+const localTheme = localStorage.getItem('theme'); //Чтение данных из локального хранилища 
 
 if (themeInLocal === Theme.DARK) {
-    refs.body.classList.add(Theme.DARK);
-    refs.switch.checked = true;
-  }
+  refs.body.classList.add(Theme.DARK);
+  refs.switch.checked = true;
+}
+
+// const localTheme = localStorage.getItem('theme');
+// addClassForLocalTheme();
+
+// function addClassForLocalTheme() {
+//   if (localTheme === Theme.DARK) {
+//     refs.body.classList.add(Theme.DARK);
+//     refs.switch.checked = true;
+//   }
+// }
