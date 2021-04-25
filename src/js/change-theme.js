@@ -10,51 +10,35 @@ const refs = {
   
 //   console.log(localStorage);
  
+console.log(localStorage);
+console.dir(refs.switch);
+refs.switch.addEventListener('change', changeColorTheme);
+// console.dir(refs.switch);
 
-  refs.switch.addEventListener('change', changeColorTheme);
-
-  function changeColorTheme() {   
+function changeColorTheme() {
     const checked = refs.switch.checked;
-    if(checked) {
-        refs.body.classList.add(Theme.DARK);
-        refs.bode.classList.remove(Theme.LIGHT);
-
-        // localStorage.setItem('theme', Theme.DARK); 
-    } else {
-        refs.body.classList.add(Theme.LIGHT);
-        refs.bode.classList.remove(Theme.DARK);
-
-        // localStorage.setItem('theme', Theme.LIGHT);
-    
-    }
-  }
-
+    if (checked) {
+      replaceTheme(Theme.DARK, Theme.LIGHT); // вызов функции изменяющей тему
   
-function setLocalStorage(e) {
-    const check = refs.switch.checked;
-  
-    if (check) {
-      localStorage.setItem('theme', Theme.DARK); 
+      localStorage.setItem('theme', Theme.DARK);
     } else {
-      localStorage.removeItem('theme', Theme.DARK);
+      replaceTheme(Theme.LIGHT, Theme.DARK);
+  
       localStorage.setItem('theme', Theme.LIGHT);
     }
   }
 
+  
 
+
+
+// Добавляем класс на боди и перемещаем переключатель, если в localStorage была темная тема
 const localTheme = localStorage.getItem('theme'); //Чтение данных из локального хранилища 
+addClassForLocalTheme(); 
 
-if (themeInLocal === Theme.DARK) {
-  refs.body.classList.add(Theme.DARK);
-  refs.switch.checked = true;
-}
-
-// const localTheme = localStorage.getItem('theme');
-// addClassForLocalTheme();
-
-// function addClassForLocalTheme() {
-//   if (localTheme === Theme.DARK) {
-//     refs.body.classList.add(Theme.DARK);
-//     refs.switch.checked = true;
-//   }
-// }
+function addClassForLocalTheme() {
+    if (localTheme === Theme.DARK) {
+      refs.body.classList.add(Theme.DARK);
+      refs.switch.checked = true;
+    }
+  }
