@@ -1,6 +1,5 @@
 import dishes from './menu.json';
 import itemTemplate from './templates/dishes-cards.hbs'; 
-
 import './js/change-theme.js';
 import './styles.css';
 

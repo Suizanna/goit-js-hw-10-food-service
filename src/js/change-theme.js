@@ -27,11 +27,6 @@ function changeColorTheme() {
       localStorage.setItem('theme', Theme.LIGHT);
     }
   }
-
-  
-
-
-
 // Добавляем класс на боди и перемещаем переключатель, если в localStorage была темная тема
 const localTheme = localStorage.getItem('theme'); //Чтение данных из локального хранилища 
 addClassForLocalTheme(); 
