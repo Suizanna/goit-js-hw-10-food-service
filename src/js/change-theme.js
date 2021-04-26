@@ -11,10 +11,10 @@ const Theme = {
 refs.switch.addEventListener('change', setClassList);
 
 
-function setClassList(e) {
-  const check = refs.switch.checked;
+function setClassList(evt) {
+  const checked = refs.switch.checked;
 
-  if (check) {
+  if (checked) {
     refs.body.classList.add(Theme.DARK);
     refs.body.classList.remove(Theme.LIGHT);
   } else {
@@ -23,10 +23,10 @@ function setClassList(e) {
   }
 }
 
-function setLocalStorage(e) {
-  const check = refs.switch.checked;
+function setLocalStorage(evt) {
+  const checked = refs.switch.checked;
 
-  if (check) {
+  if (checked) {
     localStorage.setItem('theme', Theme.DARK);
   } else {
     localStorage.removeItem('theme');
@@ -38,5 +38,8 @@ const themeInLocal = localStorage.getItem('theme');
 
 if (themeInLocal === Theme.DARK) {
   refs.body.classList.add(Theme.DARK);
-  refs.switch.checked = true;
+  refs.switch.checked = true; 
 }
+// Если при загрузке страницы тема тёмная Theme.DARK, 
+// поставить свойство checked у чекбокса #theme-switch-toggle в true,
+//  чтобы ползунок сдвинулся в правильное положение.
