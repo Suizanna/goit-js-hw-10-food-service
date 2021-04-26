@@ -11,7 +11,7 @@ const Theme = {
 refs.switch.addEventListener('change', setClassList);
 
 
-function setClassList(evt) {
+function setClassList() {
   const checked = refs.switch.checked;
 
   if (checked) {
@@ -23,7 +23,7 @@ function setClassList(evt) {
   }
 }
 
-function setLocalStorage(evt) {
+function setLocalStorage() {
   const checked = refs.switch.checked;
 
   if (checked) {
