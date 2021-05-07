@@ -1,6 +1,6 @@
 const refs = {
   body: document.querySelector('body'),
-  switch: document.querySelector('.js-switch-input'),
+  input: document.querySelector('.theme-switch__toggle'),
 };
 
 const Theme = {
@@ -8,35 +8,45 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
-refs.switch.addEventListener('change', setClassList);
+refs.input.addEventListener('change', setClassList);
 
+// выносим логику в отдельную функцию
+function toggleTheme(rem, add) { 
+  refs.body.classList.remove(rem)
+  refs.body.classList.add(add)
+  localStorage.setItem('Theme', add)
+}
 
-function setClassList() {
-  const check = refs.switch.checked;
-
-  if (check) {
-    refs.body.classList.add(Theme.DARK);
-    refs.body.classList.remove(Theme.LIGHT);
-  } else {
-    refs.body.classList.add(Theme.LIGHT);
-    refs.body.classList.remove(Theme.DARK);
+function setClassList(e) {
+  if (e.target.checked) {
+  toggleTheme(Theme.LIGHT,Theme.DARK)
+    return
   }
+ toggleTheme(Theme.DARK, Theme.LIGHT)
 }
+refs.input.checked = localStorage.getItem('Theme') === Theme.DARK;
+refs.body.classList.add(localStorage.getItem('Theme') === null ? Theme.LIGHT : localStorage.getItem('Theme'))
 
-function setLocalStorage() {
-  const check = refs.switch.checked;
+// 2 вар
+// function setClassList() {
+//   const check = refs.input.checked;
 
-  if (check) {
-    localStorage.setItem('theme', Theme.DARK);
-  } else {
-    localStorage.removeItem('theme');
-    localStorage.setItem('theme', Theme.LIGHT);
-  }
-}
+//   if (check) {
+//     refs.body.classList.remove(Theme.LIGHT);
+//     refs.body.classList.add(Theme.DARK);
+//     localStorage.setItem('theme', Theme.DARK);
+//     return;
+//   } else {
+//     refs.body.classList.remove(Theme.DARK);
+//     refs.body.classList.add(Theme.LIGHT);
+//     localStorage.setItem('theme', Theme.LIGHT);
+//   }
+// }
 
-const themeInLocal = localStorage.getItem('theme');
 
-if (themeInLocal === Theme.DARK) {
-  refs.body.classList.add(Theme.DARK);
-  refs.switch.checked = true;
-}
+// const themeInLocal = localStorage.getItem('theme');
+
+// if (themeInLocal === Theme.DARK) {
+//   refs.body.classList.add(Theme.DARK);
+//   refs.input.checked = true;
+// }
